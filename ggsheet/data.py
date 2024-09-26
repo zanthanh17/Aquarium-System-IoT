@@ -1,10 +1,6 @@
 import urequests
 import ntptime
 import time
-import sensor.turbidity as TUR
-import sensor.Temp as Temp
-import sensor.PH as ph
-
 
 ntptime.host = 'pool.ntp.org'  # Use this or another known NTP server
 
@@ -20,11 +16,7 @@ def get_ntp_time():
         print("Error getting NTP time:", e)
         return None
     
-def get_data():
-    NTU = TUR.read_turbidity()
-    phValue = ph.read_ph() 
-    # temp = Temp.read_temperature()
-
+def get_data(NTU,phValue):
     timestamp = get_ntp_time()
     # Prepare JSON payload
     json_data = {
