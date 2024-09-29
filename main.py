@@ -28,7 +28,6 @@ while True:
     NTU = TUR.read_turbidity()
     phValue = ph.read_ph() 
     # temp = Temp.read_temperature()
-
     servo_status = servo.check_and_feed()
 
     if servo_status:
@@ -42,6 +41,6 @@ while True:
 
     data.get_data(NTU,phValue,status)
             
-    time.sleep(2)
+    time.sleep(1)
 
 

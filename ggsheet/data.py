@@ -4,7 +4,7 @@ import time
 
 ntptime.host = 'pool.ntp.org'  # Use this or another known NTP server
 
-server_url = 'https://script.google.com/macros/s/AKfycbxFIuoPAedew7iaNBJ7Mpca1hGPtc9l5bp4eVNgNQpGj9BCNwDS94EJAHVwsOGpT1d8/exec'
+server_url = 'https://script.google.com/macros/s/AKfycbxRFCwRGGV5haYvg22C61vgGLbLgjdrVheQWW5v2DzSOqUWdI6QtHui1RvNdVnXuA-X/exec'
 
 def get_ntp_time():
     try:

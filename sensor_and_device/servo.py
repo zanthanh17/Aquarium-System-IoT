@@ -12,15 +12,17 @@ def set_servo_angle(angle):
 def feed_fish():
     print("Servo ON")
     set_servo_angle(90)  # Mở servo
-    time.sleep(5)  # Đợi 5 giây
+    time.sleep(3)  # Đợi 5 giây
     set_servo_angle(0)  # Đóng servo
     print("Servo OFF")
 
 def check_and_feed():
     current_time = data.get_ntp_time()
     if current_time:
-        hour, minute = map(int, current_time.split(':')[:2])
-    if (hour == 6 and minute == 24) or (hour == 18 and minute == 0):
+        hour, minute, second = map(int, current_time.split(':'))
+    else: return False
+
+    if (hour == 14 and minute == 07 and 0 <=second <= 30) or (hour == 18 and minute == 0):
         feed_fish()
-        return True   
+        return True  
     else: return False
