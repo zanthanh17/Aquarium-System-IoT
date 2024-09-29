@@ -4,19 +4,19 @@ import time
 
 ntptime.host = 'pool.ntp.org'  # Use this or another known NTP server
 
-server_url = 'https://script.google.com/macros/s/AKfycbwEBDMV7npCrkxAaN1BUHYQaHLqwUZRsOI8U5uhgOT5i89fABizurx9U6Zq6vz7RizY/exec'
+server_url = 'https://script.google.com/macros/s/AKfycbxFIuoPAedew7iaNBJ7Mpca1hGPtc9l5bp4eVNgNQpGj9BCNwDS94EJAHVwsOGpT1d8/exec'
 
 def get_ntp_time():
     try:
         ntptime.settime()  # Synchronize the system time with NTP
         tm = time.localtime(time.time())  # Get local time
-        formatted_time = "{:02d}:{:02d}:{:02d}".format(tm[3], tm[4], tm[5])
+        formatted_time = "{:02d}:{:02d}:{:02d}".format(tm[3] + 7, tm[4], tm[5])
         return formatted_time
     except Exception as e:
         print("Error getting NTP time:", e)
         return None
     
-def get_data(NTU,phValue):
+def get_data(NTU,phValue,status):
     timestamp = get_ntp_time()
     # Prepare JSON payload
     json_data = {
@@ -24,6 +24,7 @@ def get_data(NTU,phValue):
         # "temp": temp,
         "NTU": NTU,
         "phValue": phValue,
+        "status": status,
         "timestamp": timestamp,
     }
     # Send HTTP POST request
