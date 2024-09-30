@@ -1,45 +1,52 @@
-from machine import Pin, ADC, SoftI2C
 import network
 import time
 import math
 import sensor_and_device.oled as oled
-import blynk_cloud.blynk_cloud as blynk_cloud
+import Data.blynk_cloud as blynk_cloud
 import sensor_and_device.turbidity as TUR
 import sensor_and_device.Temp as Temp
 import sensor_and_device.PH as ph
-import ggsheet.data as data
-import sensor_and_device.servo as servo
+import Data.ggsheet as ggsheet
+import device.servo as servo
+import device.check_control as motor
 
-ssid = 'Giangvien'
-password ='dhbk@2024'
-station = network.WLAN(network.STA_IF)
-station.active(True)
-station.connect(ssid, password)
-while not station.isconnected():
-    print('Connecting to WiFi...')
-    time.sleep(1)
-print('WiFi connected to:', ssid)
-print(station.ifconfig())
+def connect_WIFI():
+    ssid = 'NHATRO BM T1'
+    password ='nhatro123456t1'
+    station = network.WLAN(network.STA_IF)
+    station.active(True)
+    station.connect(ssid, password)
+    while not station.isconnected():
+        print('Connecting to WiFi...')
+        time.sleep(1)
+    print('WiFi connected to:', ssid)
+    print(station.ifconfig())
 
-# blynk = blynk_cloud.blynklib_mp.Blynk("4Sly-C35Dvbbi8FWkc9mmCpMfGfK0NJl")
-# blynk_cloud.connect_blynk(blynk)
+blynk = blynk_cloud.blynklib_mp.Blynk("4Sly-C35Dvbbi8FWkc9mmCpMfGfK0NJl")
+blynk_cloud.connect_blynk(blynk)
 
+connect_WIFI()
 while True:               
     NTU = TUR.read_turbidity()
     phValue = ph.read_ph() 
-    # temp = Temp.read_temperature()
+    temp = Temp.read_temperature()
+
+    # set cac gia tri nguong~
+    thresholds = motor.standard_value(temp_threshold=30, turbidity_threshold=500,ph_threshold = 7)
+    # so sanh nguong va dieu khien dong co bom nuoc
+    motor.check_and_control_motor(thresholds,temp,NTU,phValue)
+
+    # kiem tra thoi gian cho ca an
     servo_status = servo.check_and_feed()
-
     if servo_status:
-        status = 'ON'
-    else: status = 'OFF'
+        status = 'ON'        #6a.m & 6p.m thi trang thai servo ON
+    else: status = 'OFF'     #cac time khac thi servo OFF
 
+    oled.oled_display(thresholds,NTU,phValue)
 
-    # oled.oled_display(NTU,phValue)
+    blynk_cloud.display_blynk(blynk,NTU,phValue)
 
-    # blynk_cloud.display_blynk(blynk,NTU,phValue)
-
-    data.get_data(NTU,phValue,status)
+    ggsheet.get_data(status)
             
     time.sleep(1)
 

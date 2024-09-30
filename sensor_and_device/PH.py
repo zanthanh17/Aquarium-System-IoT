@@ -1,6 +1,6 @@
 from machine import Pin, ADC, SoftI2C
 
-adc = ADC(Pin(34))
+adc = ADC(Pin(8))
 # ADC attenuation and width setting (for 0-3.3V range)
 adc.atten(ADC.ATTN_11DB)  # Full-scale voltage: 3.3V
 adc.width(ADC.WIDTH_12BIT)  # 12-bit resolution, value range: 0-4095

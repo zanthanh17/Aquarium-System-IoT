@@ -2,7 +2,7 @@ from machine import Pin,PWM
 import time
 import ggsheet.data as data
 
-servo_pin = Pin(23)  # Chọn chân GPIO phù hợp
+servo_pin = Pin(2)  # Chọn chân GPIO phù hợp
 servo = PWM(servo_pin, freq=50)
 
 def feed_fish():
@@ -18,7 +18,7 @@ def check_and_feed():
         hour, minute, second = map(int, current_time.split(':'))
     else: return False
 
-    if (hour == 10 and minute == 30 and 0 <=second <= 30) or (hour == 18 and minute == 0):
+    if (hour == 21 and minute == 20 and 0 <=second <= 30) or (hour == 18 and minute == 0):
         feed_fish()
         return True  
     else: return False

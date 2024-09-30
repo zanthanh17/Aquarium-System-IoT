@@ -1,7 +1,7 @@
 from machine import Pin, ADC, SoftI2C
 
 def read_turbidity():
-    adc = ADC(Pin(35))
+    adc = ADC(Pin(9))
     adc.atten(ADC.ATTN_11DB)
     Volt = 0
     Volt = adc.read() / 4095 * 5  # Chuyển đổi giá trị đọc từ ADC thành điện áp (5V tham chiếu)
