@@ -10,8 +10,8 @@ import sensor_and_device.PH as ph
 import ggsheet.data as data
 import sensor_and_device.servo as servo
 
-ssid = 'NHATRO BM T1'
-password = 'nhatro123456t1'
+ssid = 'Giangvien'
+password ='dhbk@2024'
 station = network.WLAN(network.STA_IF)
 station.active(True)
 station.connect(ssid, password)
