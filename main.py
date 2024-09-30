@@ -1,11 +1,11 @@
 import network
 import time
 import math
-import sensor_and_device.oled as oled
+import device.oled as oled
 import Data.blynk_cloud as blynk_cloud
-import sensor_and_device.turbidity as TUR
-import sensor_and_device.Temp as Temp
-import sensor_and_device.PH as ph
+import sensor.turbidity as TUR
+import sensor.Temp as Temp
+import sensor.PH as ph
 import Data.ggsheet as ggsheet
 import device.servo as servo
 import device.check_control as motor
