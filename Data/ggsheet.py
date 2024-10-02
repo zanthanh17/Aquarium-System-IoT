@@ -16,14 +16,14 @@ def get_ntp_time():
         print("Error getting NTP time:", e)
         return None
     
-def get_data(status):
+def get_data(status,NTU,phValue):
     timestamp = get_ntp_time()
     # Prepare JSON payload
     json_data = {
         "method": "append",
         # "temp": temp,
-        # "NTU": NTU,
-        # "phValue": phValue,
+        "NTU": NTU,
+        "phValue": phValue,
         "status": status,
         "timestamp": timestamp,
     }

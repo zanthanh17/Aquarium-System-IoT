@@ -1,23 +1,19 @@
 from machine import Pin
 
-motor = Pin(2, Pin.OUT)
+# motor = Pin(5, Pin.OUT)
 
-def standard_value(std_temp,std_phValue,std_NTU):
+def standard_value(std_NTU,std_phValue):
     return {
-    'temperature': std_temp,  # Nhiệt độ (°C)
+    # 'temperature': std_temp,  # Nhiệt độ (°C)
     'turbidity': std_NTU,     # Độ đục (NTU)
     'pH': std_phValue,          # Độ pH
     }
 
-def check_and_control_motor(thresholds, temperature, turbidity, ph_value, water_level):
+def check_and_control_motor(thresholds, turbidity, ph_value):
     
-    
-    if (temperature > thresholds["temp"] or
-        turbidity > thresholds["turbidity"] or
-        thresholds["ph" - 0.5] <= ph_value >= thresholds["ph" + 1] or
-        water_level > thresholds["water_level"]):
-        motor.on()  # Bật động cơ
+    if turbidity > thresholds["turbidity"] or ph_value > thresholds["pH"]:
+        print("MOTOR ON")  # Bật động cơ
     else:
-        motor.off()  # Tắt động cơ
+        print("MOTOR OFF")  # Tắt động cơ
 
 
