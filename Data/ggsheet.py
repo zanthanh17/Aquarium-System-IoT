@@ -21,7 +21,7 @@ def get_data(status,NTU,phValue):
     # Prepare JSON payload
     json_data = {
         "method": "append",
-        # "temp": temp,
+        # "temp": temp;
         "NTU": NTU,
         "phValue": phValue,
         "status": status,
