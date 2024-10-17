@@ -9,6 +9,7 @@ import Data.ggsheet as ggsheet
 import device.servo as servo
 import device.check_control as motor
 import sensor.levelwater as levelwater
+import Data.email as email
 
 """
     nhietdo d4
@@ -21,8 +22,8 @@ import sensor.levelwater as levelwater
 
 # ket noi wifi
 def connect_WIFI():
-    ssid = 'Giangvien'
-    password ='dhbk@2024'
+    ssid = 'NHATRO BM T1'
+    password ='nhatro123456t1'
     station = network.WLAN(network.STA_IF)
     station.active(True)
     station.connect(ssid, password)
@@ -36,7 +37,7 @@ connect_WIFI()
 # Cau hinh blynk
 blynk = blynk_cloud.blynklib_mp.Blynk("4Sly-C35Dvbbi8FWkc9mmCpMfGfK0NJl")
 blynk_cloud.connect_blynk(blynk)
-
+    
 while True:             
     # Goi ham cac gia tri cam bien
     NTU = TUR.read_turbidity()
@@ -45,13 +46,15 @@ while True:
     level = levelwater.water_level()
     
     # set cac gia tri nguong~
-    thresholds = motor.standard_value(26,500,7)
 
     # so sanh nguong va dieu khien dong co bom nuoc
-    # motor.Pump(thresholds,NTU)
+    motor.Pump(temp,NTU,phValue,level)
 
     # dieu khien dong co xa nuoc
     motor.flush(level)
+    
+    #Canh bao
+    email.warning(temp,NTU,phValue)
 
     #kiem tra thoi gian cho ca an
     servo_status = servo.check_and_feed()
@@ -60,7 +63,7 @@ while True:
     else: status = 'OFF'     #cac time khac thi servo OFF
 
     #hien thi gia tri len oled
-    oled.oled_display(thresholds,temp,NTU,phValue)
+    oled.oled_display(temp,NTU,phValue)
 
     # # hien thi gia tri len Blynk cloud
     blynk_cloud.display_blynk(blynk,temp,NTU,phValue)
