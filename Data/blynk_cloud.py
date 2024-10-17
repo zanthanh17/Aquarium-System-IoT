@@ -10,9 +10,9 @@ def connect_blynk(blynk):
     else:
         print('Blynk initialized successfully')
 
-def display_blynk(blynk,NTU,phValue):
+def display_blynk(blynk,temp,NTU,phValue):
     if blynk is not None:
         blynk.virtual_write(1,NTU)
         blynk.virtual_write(2,phValue)
-        # blynk.virtual_write(0,temp)
+        blynk.virtual_write(0,temp)
         blynk.run()

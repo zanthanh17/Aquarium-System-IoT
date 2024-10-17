@@ -18,7 +18,7 @@ def check_and_feed():
         hour, minute, second = map(int, current_time.split(':'))
     else: return False
 
-    if (hour == 16 and minute == 41 and 0 <=second <= 30) or (hour == 18 and minute == 0):
+    if (hour == 7 and minute == 51 and 0 <=second <= 20) or (hour == 18 and minute == 00 and 0 <=second <= 20):
         feed_fish()
         return True  
     else: return False

@@ -4,7 +4,7 @@ import time
 
 ntptime.host = 'pool.ntp.org'  # Use this or another known NTP server
 
-server_url = 'https://script.google.com/macros/s/AKfycbxRFCwRGGV5haYvg22C61vgGLbLgjdrVheQWW5v2DzSOqUWdI6QtHui1RvNdVnXuA-X/exec'
+server_url = 'https://script.google.com/macros/s/AKfycbwmtiBFZmYamy8jP-yjJyTeu9XDDVWUdu-jO3JknexRuMsIhUDGTDBAkRi4kFOb7iiR/exec'
 
 def get_ntp_time():
     try:
@@ -16,12 +16,12 @@ def get_ntp_time():
         print("Error getting NTP time:", e)
         return None
     
-def get_data(status,NTU,phValue):
+def get_data(status,temp,NTU,phValue):
     timestamp = get_ntp_time()
     # Prepare JSON payload
     json_data = {
         "method": "append",
-        # "temp": temp;
+        "temp": temp,
         "NTU": NTU,
         "phValue": phValue,
         "status": status,
